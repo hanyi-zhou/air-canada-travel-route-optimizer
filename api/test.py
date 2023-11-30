@@ -23,12 +23,7 @@ selected_routes = [("Vancouver", "Edmonton"), ("Vancouver", "Calgary"), ("Calgar
                    ("Edmonton", "Montreal"), ("Edmonton", "Yellowknife"), ("Edmonton", "Calgary")]
 
 input_str = generate_input_str(selected_cities, selected_routes)
-print(input_str)
 
-# 示例处理函数
 def process_function(input_str):
-    # 在这里调用你的 Python 处理函数，返回结果
-    # 例如，如果你的处理函数需要城市和航线作为参数，可以这样调用：
     result = run_program_with_input(input_str)
     return result
-print(process_function(input_str))
