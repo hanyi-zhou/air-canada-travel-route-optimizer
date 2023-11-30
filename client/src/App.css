@@ -1,0 +1,75 @@
+.title {
+  font-family:Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+.selectCity {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.addCityButton {
+  margin-left: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: coral;
+  color:whitesmoke
+}
+
+.selectCityMenu {
+  margin-left: 10px;
+}
+
+.selectRouteMenuFrom {
+  margin-left: 10px;
+}
+
+.from {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.to {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.selectRouteMenuTo {
+  margin-left: 10px;
+}
+
+.addRouteButton {
+  margin-left: 10px;
+  background-color: cornflowerblue;
+  color:whitesmoke;
+}
+
+.calculateResultButton {
+  background-color: darkslateblue;
+  color:whitesmoke;
+}
+
+.resetButton {
+  margin-left: 10px;
+  background-color: peru;
+  color:whitesmoke;
+}
+
+.cities {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.routes {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.result {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.resultDetails {
+  font-size: 18px;
+}
