@@ -16,8 +16,3 @@ def run_program_with_input(input_str):
 
     # Return the output as a list
     return [line.strip() for line in output_lines]
-
-# 测试
-input_str = "8 9\nVancouver\nYellowknife\nEdmonton\nCalgary\nWinnipeg\nToronto\nMontreal\nHalifax\nVancouver Edmonton\nVancouver Calgary\nCalgary Winnipeg\nWinnipeg Toronto\nToronto Halifax\nMontreal Halifax\nEdmonton Montreal\nEdmonton Yellowknife\nEdmonton Calgary\n"
-result = run_program_with_input(input_str)
-print(result)
