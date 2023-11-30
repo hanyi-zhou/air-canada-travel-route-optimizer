@@ -24,6 +24,10 @@ Create a new terminal and enter the client/ folder.
 
 Install all the dependencies.
 
+### `npm install eslint-plugin-html --save-dev`
+
+Install eslint-plugin-html.
+
 ### `npm start`
 
 Run the app in the development mode.\
