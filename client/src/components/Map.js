@@ -4,16 +4,13 @@ const Map = ({ selectedCities, selectedRoutes, dataFromServer }) => {
   const [polylines, setPolylines] = useState([]);
 
   useEffect(() => {
-    // Initialize the map
     const map = new window.google.maps.Map(document.getElementById("map"), {
       center: { lat: 56.1304, lng: -106.3468 },
       zoom: 3.5,
     });
 
-    // Create a dictionary to store info windows for each city
     const infoWindows = {};
 
-    // Add markers for selected cities
     selectedCities.forEach((city) => {
       const geocoder = new window.google.maps.Geocoder();
       geocoder.geocode({ address: city }, (results, status) => {
@@ -24,15 +21,12 @@ const Map = ({ selectedCities, selectedRoutes, dataFromServer }) => {
             title: city,
           });
 
-          // Create an info window for the marker
           const infoWindow = new window.google.maps.InfoWindow({
             content: `<div>${city}</div>`,
           });
 
-          // Store the info window in the dictionary
           infoWindows[city] = infoWindow;
 
-          // Attach a click event to the marker to open the info window
           marker.addListener("click", () => {
             infoWindow.open(map, marker);
           });
@@ -42,45 +36,38 @@ const Map = ({ selectedCities, selectedRoutes, dataFromServer }) => {
       });
     });
 
-    // Remove existing polylines
-    polylines.forEach((polyline) => {
-      polyline.setMap(null);
-    });
+    const addPolyline = (coordinates, color) => {
+      const flightPath = new window.google.maps.Polyline({
+        path: coordinates,
+        geodesic: true,
+        strokeColor: color,
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+      });
+      flightPath.setMap(map);
+      setPolylines((prevPolylines) => [...prevPolylines, flightPath]);
+    };
 
-    // Add polylines for selected routes
     selectedRoutes.forEach((route) => {
       const flightPlanCoordinates = [];
 
-      // Geocode each city in the route to get its coordinates
       route.forEach((city) => {
         const geocoder = new window.google.maps.Geocoder();
         geocoder.geocode({ address: city }, (results, status) => {
           if (status === "OK" && results[0].geometry) {
             flightPlanCoordinates.push(results[0].geometry.location);
 
-            // Draw the polyline when all coordinates are retrieved
             if (flightPlanCoordinates.length === route.length) {
-              const flightPath = new window.google.maps.Polyline({
-                path: flightPlanCoordinates,
-                geodesic: true,
-                strokeColor: "#0000FF",
-                strokeOpacity: 1.0,
-                strokeWeight: 2,
-              });
-              flightPath.setMap(map);
-
-              // Add the new polyline to the state
-              setPolylines((prevPolylines) => [...prevPolylines, flightPath]);
+              addPolyline(flightPlanCoordinates, "#0000FF");
             }
           }
         });
       });
     });
 
-    // Add polylines for selected routes
-    const flightPlanCoordinates = dataFromServer.slice(1).map((city) => {
-      const geocoder = new window.google.maps.Geocoder();
+    const resultCoordinates = dataFromServer.slice(1).map((city) => {
       return new Promise((resolve, reject) => {
+        const geocoder = new window.google.maps.Geocoder();
         geocoder.geocode({ address: city }, (results, status) => {
           if (status === "OK" && results[0].geometry) {
             resolve(results[0].geometry.location);
@@ -91,19 +78,13 @@ const Map = ({ selectedCities, selectedRoutes, dataFromServer }) => {
       });
     });
 
-    Promise.all(flightPlanCoordinates)
+    Promise.all(resultCoordinates)
       .then((locations) => {
-        const flightPath = new window.google.maps.Polyline({
-          path: locations,
-          geodesic: true,
-          strokeColor: "#FFFF00",
-          strokeOpacity: 1.0,
-          strokeWeight: 2,
+        // Remove existing polylines before adding the result polyline
+        polylines.forEach((polyline) => {
+          polyline.setMap(null);
         });
-        flightPath.setMap(map);
-
-        // Add the new polyline to the state
-        setPolylines((prevPolylines) => [...prevPolylines, flightPath]);
+        addPolyline(locations, "#FFFF00");
       })
       .catch((error) => {
         console.error("Geocoding error:", error);
@@ -115,6 +96,7 @@ const Map = ({ selectedCities, selectedRoutes, dataFromServer }) => {
         polyline.setMap(null);
       });
     };
+    // eslint-disable-next-line
   }, [selectedCities, selectedRoutes, dataFromServer]);
 
   return <div id="map" style={{ height: "500px", width: "100%" }}></div>;
