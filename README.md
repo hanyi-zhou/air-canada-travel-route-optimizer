@@ -20,9 +20,9 @@ Start the server.
 
 Create a new terminal and enter the client/ folder.
 
-### `npm install eslint-plugin-html --save-dev`
+### `npm install`
 
-Install eslint-plugin-html.
+Install dependencies.
 
 ### `npm start`
 
