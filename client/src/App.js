@@ -5,12 +5,17 @@ import "./App.css";
 const App = () => {
   const predefinedCities = [
     "Vancouver-BC",
+    "PrinceGeorge-BC",
     "Yellowknife-NT",
-    "Edmonton-AB",
     "Calgary-AB",
+    "Edmonton-AB",
+    "Saskatoon-SK",
+    "Regina-SK",
     "Winnipeg-MB",
     "Toronto-ON",
+    "Ottawa-ON",
     "Montreal-QC",
+    "Quebec-QC",
     "Halifax-NS",
   ];
 
@@ -97,17 +102,20 @@ const App = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/api/process_data", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({
-          selectedCities: selectedCities,
-          selectedRoutes: selectedRoutes,
-        }),
-      });
+      const response = await fetch(
+        `https://final-project-406621.uw.r.appspot.com/api/process_data`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: JSON.stringify({
+            selectedCities: selectedCities,
+            selectedRoutes: selectedRoutes,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
