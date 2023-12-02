@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, origins='*')
+CORS(app, origins="*")
 
 from program_runner import run_program_with_input
 
